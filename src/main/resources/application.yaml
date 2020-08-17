@@ -1,0 +1,15 @@
+#spring:
+#  profiles:
+#    active: dev
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.0.0.100:3306/blog?useUnicode=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    
+mybatis:
+  typeAliasesPackage: com.mirkmoon.pojo
+  mapperLocations: classpath:mappers/*.xml
