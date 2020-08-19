@@ -1,7 +1,8 @@
 package com.mirkmoon.control;
 
 
-import io.swagger.annotations.ApiResponse;
+
+import com.mirkmoon.dto.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,8 @@ public class AuthUserControl {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ApiResponse login(){
-        return "";
+    public ApiResponse login(LoginRequest loginRequest){
+        return null;
     }
 
     @PostMapping("/logout")
