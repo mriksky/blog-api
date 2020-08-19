@@ -57,11 +57,11 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>1.4.0</version>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>-->
+        </dependency>
         <!-- swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -90,11 +90,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
-        </dependency>-->
+        </dependency>
         <!-- druid数据源驱动 -->
     </dependencies>
 
