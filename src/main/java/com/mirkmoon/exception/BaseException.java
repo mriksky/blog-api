@@ -19,6 +19,19 @@ public class BaseException extends RuntimeException {
     private String message;
     private Object data;
 
+    public Integer getCode() {
+        return code;
+    }
+
+    @Override
+    public String getMessage() {
+        return message;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
     public BaseException(Status status) {
         super(status.getMessage());
         this.code = status.getCode();
@@ -40,4 +53,6 @@ public class BaseException extends RuntimeException {
         this(code, message);
         this.data = data;
     }
+
+
 }

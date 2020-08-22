@@ -63,7 +63,7 @@ public class ApiResponse implements Serializable {
     }
 
     /**
-     * @param
+     * @param data 返回数据
      * @return ApiResponse
      * @throws
      * @description 构造一个成功带数据的API返回
@@ -85,10 +85,10 @@ public class ApiResponse implements Serializable {
     }
 
     /**
+     * @description 构造一个有状态且带数据的API返回
      * @param
      * @return code 状态码  message状态信息 data数据
      * @throws
-     * @description 构造一个有状态且带数据的API返回
      * @updateTime 2020/8/19 23:26
      **/
     public static ApiResponse ofStatus(IStatus status, Object data) {
@@ -96,10 +96,10 @@ public class ApiResponse implements Serializable {
     }
     /**
      * @description 构造一个异常的API返回
-     * @param 
+     * @param
+     * @return
+     * @throws
      * @updateTime 2020/8/19 23:32
-     * @throws 
-     * @return 
      **/
     public static <T extends BaseException> ApiResponse ofException(T t) {
         return of(t.getCode(), t.getMessage(), t.getData());
