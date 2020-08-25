@@ -1,5 +1,8 @@
 package com.mirkmoon.components.utils;
 
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 /**
  * @ClassName JwtConfig
  * @Description JWT 配置
@@ -7,11 +10,14 @@ package com.mirkmoon.components.utils;
  * @Date 2020/8/21 12:41
  * @Version v1.0
  **/
+@Data
+//获取jwt的配置注解
+@ConfigurationProperties(prefix = "jwt.config")
 public class JwtConfig {
     /**
-     * jwt 加密 key，默认值：xkcoding.
+     * jwt 加密 key，默认值：
      **/
-    private static final String SECRET_KEY = "I-LIKE-CODING";
+    private String key = "I-LIKE-CODING";
 
     /**
      * jwt 过期时间，默认值：600000 {@code 10 分钟}.

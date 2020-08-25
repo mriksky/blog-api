@@ -13,3 +13,27 @@ spring:
 mybatis:
   typeAliasesPackage: com.mirkmoon.pojo
   mapperLocations: classpath:mappers/*.xml
+
+
+
+
+jwt:
+  config:
+    key: I-LIKE-CODING
+    ttl: 600000
+    remember: 604800000
+logging:
+  level:
+    com.xkcoding.rbac.security: debug
+custom:
+  config:
+    ignores:
+      # 需要过滤的 post 请求
+      post:
+        - "/login"
+        - "/logout"
+      # 需要过滤的请求，不限方法
+      pattern:
+        - "/test/*"
+
+

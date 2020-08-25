@@ -47,12 +47,29 @@
         </javaClientGenerator>
 
         <!-- 指定要逆向分析哪些表：根据表要创建javaBean -->
-        <table tableName="sys_user" domainObjectName="User"></table>
+        <!--<table tableName="sys_user" domainObjectName="User"></table>-->
 
         <!--&lt;!&ndash; 要生成哪些表 &ndash;&gt;-->
         <table tableName="sys_user" domainObjectName="User"
-               enableCountByExample="true" enableUpdateByExample="true"
-               enableDeleteByExample="true" enableSelectByExample="true"
-               selectByExampleQueryId="true"/>
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sys_role" domainObjectName="Role"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sys_user_role" domainObjectName="UserRole"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sys_permission" domainObjectName="Permission"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+        <table tableName="sys_role_permission" domainObjectName="RolePermission"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+
     </context>
 </generatorConfiguration>
