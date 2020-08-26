@@ -122,4 +122,8 @@ public enum Status implements IStatus {
         return String.format(" Status:{code=%s, message=%s} ", getCode(), getMessage());
     }
 
+    public static void main(String[] args) {
+        System.out.print(Status.SUCCESS);
+    }
+
 }

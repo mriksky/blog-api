@@ -79,15 +79,16 @@ public class JwtUtil {
      */
     public String createJWT(Authentication authentication, Boolean rememberMe) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        return createJWT(rememberMe, userPrincipal.getId(), userPrincipal.getUsername(), userPrincipal.getRoles(), userPrincipal.getAuthorities());
+        return createJWT(userPrincipal.getName());
     }
 
     /**
-     * 解析JWT
-     *
-     * @param jwt JWT
-     * @return {@link Claims}
-     */
+     * @description 解析jwt
+     * @param jwt
+     * @updateTime 2020/8/25 16:45
+     * @throws
+     * @return
+     **/
     public Claims parseJWT(String jwt) {
         try {
             Claims claims = Jwts.parser()
