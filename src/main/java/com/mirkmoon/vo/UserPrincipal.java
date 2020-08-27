@@ -1,7 +1,6 @@
 package com.mirkmoon.vo;
 
 import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mirkmoon.components.common.Consts;
 import com.mirkmoon.pojo.Permission;
 import com.mirkmoon.pojo.Role;
@@ -14,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -36,35 +36,37 @@ public class UserPrincipal implements UserDetails {
     private Long id;
 
     //用户名
-    private String username;
+    private String userName;
 
     //密码
-    @JsonIgnore
     private String password;
 
     //性别
-    private String gander;
+    private String gender;
 
     //邮箱
     private String email;
 
     //手机
-    private String phone;
+    private String mobile;
 
     //头像
     private String headImg;
 
     //状态，启用-1，禁用-0
-    private Integer status;
+    private String status;
 
-    //生日
-    private Long birthday;
+    //创建人
+    private String createBy;
 
     //创建时间
-    private Long createTime;
+    private Date createTime;
 
-    //更新时间
-    private Long updateTime;
+    //最后更新人
+    private String lastUpdateBy;
+
+    //最后更新时间
+    private Date lastUpdateTime;
 
     //用户角色列表
     private List<String> roles;
@@ -73,15 +75,26 @@ public class UserPrincipal implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
     public static UserPrincipal create(User user, List<Role> roles, List<Permission> permissions){
+        /**
+         *
+         */
         List<String> roleNames = roles.stream()
-                .map(Role::getRolename)
+                .map(Role::getRoleName)
                 .collect(Collectors.toList());
-
+        /**
+         *
+         */
         List<GrantedAuthority> authorities = permissions.stream()
-                .filter(permission -> StrUtil.isNotBlank(permission.getPermission()))
-                .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
+                .filter(permission -> StrUtil.isNotBlank(permission.getPermissionName()))
+                .map(permission -> new SimpleGrantedAuthority(permission.getPermissionName()))
                 .collect(Collectors.toList());
-        return new UserPrincipal();
+        /**
+         *
+         */
+        return new UserPrincipal(user.getId(),user.getUserName(),user.getPassword()
+                ,user.getGender(),user.getEmail(),user.getMobile(),user.getHeadImg(),user.getStatus(),
+                user.getCreateBy(),user.getCreateTime(),user.getLastUpdateBy(),
+                user.getLastUpdateTime(),roleNames,authorities);
     }
 
 
@@ -97,7 +110,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     @Override

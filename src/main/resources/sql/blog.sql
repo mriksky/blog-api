@@ -11,7 +11,7 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 17/08/2020 22:31:13
+ Date: 27/08/2020 22:16:00
 */
 
 SET NAMES utf8mb4;
@@ -155,18 +155,38 @@ CREATE TABLE `sys_menu`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for sys_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_permission`;
+CREATE TABLE `sys_permission`  (
+  `id` bigint(64) NOT NULL COMMENT '主键',
+  `permissionName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '权限名',
+  `url` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型为页面时，代表前端路由地址，类型为按钮时，代表后端接口地址',
+  `permissionType` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1' COMMENT '权限类型，按钮:0  页面:1 ',
+  `permissionExpress` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限表达式',
+  `method` enum('get','post','delete','head','put','patch','opentions') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'get' COMMENT '后端接口访问方式',
+  `sort` int(11) NOT NULL COMMENT '排序',
+  `parent_Id` bigint(64) NOT NULL COMMENT '父级id',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_permission
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色名称',
+  `roleName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '角色名称',
   `remark` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `last_update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
-  `last_update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  `del_flag` tinyint(4) NULL DEFAULT 0 COMMENT '是否删除  -1：已删除  0：正常',
+  `create_By` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_Time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `last_Update_By` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `last_Update_Time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `del_Flag` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1' COMMENT '是否删除  0：已删除  1：正常',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色管理' ROW_FORMAT = Dynamic;
 
@@ -194,25 +214,38 @@ CREATE TABLE `sys_role_menu`  (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for sys_role_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_permission`;
+CREATE TABLE `sys_role_permission`  (
+  `role_id` bigint(64) NOT NULL COMMENT '角色主键',
+  `permission_id` bigint(64) NOT NULL COMMENT '权限主键',
+  PRIMARY KEY (`role_id`, `permission_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限关系表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_role_permission
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
+  `userName` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名',
   `password` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
+  `gender` enum('男','女','保密') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '男' COMMENT '性别状态  1：南  0：女 ',
   `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '邮箱',
   `mobile` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '手机号',
-  `head_img` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像',
-  `status` tinyint(4) NOT NULL COMMENT '状态  0：禁用   1：正常',
-  `dept_id` bigint(20) NULL DEFAULT NULL COMMENT '机构ID',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
-  `last_update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
-  `last_update_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
-  `del_flag` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除  1：已删除  0：正常',
+  `headImg` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像',
+  `status` enum('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '1' COMMENT '状态  0：禁用   1：正常 2：已删除',
+  `create_By` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
+  `create_Time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `last_Update_By` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
+  `last_Update_Time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `name`(`name`) USING BTREE
+  UNIQUE INDEX `name`(`userName`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户管理' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -224,15 +257,10 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role`  (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `user_id` bigint(20) NULL DEFAULT NULL COMMENT '用户ID',
-  `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色ID',
-  `create_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `last_update_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新人',
-  `last_update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色' ROW_FORMAT = Dynamic;
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  PRIMARY KEY (`user_id`, `role_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_user_role

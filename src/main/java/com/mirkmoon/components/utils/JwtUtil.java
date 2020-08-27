@@ -4,7 +4,8 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.mirkmoon.components.common.Consts;
 import com.mirkmoon.dto.Status;
-import com.sun.security.auth.UserPrincipal;
+import com.mirkmoon.exception.SecurityException;
+import com.mirkmoon.vo.UserPrincipal;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,16 +72,18 @@ public class JwtUtil {
     }
 
     /**
-     * 创建JWT
-     *
+     @description 创建JWT
      * @param authentication 用户认证信息
      * @param rememberMe     记住我
-     * @return JWT
+     * @return createJwt
      */
     public String createJWT(Authentication authentication, Boolean rememberMe) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        return createJWT(userPrincipal.getName());
+        return createJwt(rememberMe,userPrincipal.getId(),userPrincipal.getUsername(),userPrincipal.getRoles(),userPrincipal.getAuthorities());
     }
+
+
+
 
     /**
      * @description 解析jwt
@@ -96,8 +99,8 @@ public class JwtUtil {
                     .parseClaimsJws(jwt)
                     .getBody();
 
-            String username = claims.getSubject();
-            String redisKey = Consts.REDIS_JWT_KEY_PREFIX + username;
+            String user = claims.getSubject();
+            String redisKey = Consts.REDIS_JWT_KEY_PREFIX + user;
 
             // 校验redis中的JWT是否存在
             Long expire = stringRedisTemplate.getExpire(redisKey, TimeUnit.MILLISECONDS);
