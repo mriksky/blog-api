@@ -28,4 +28,6 @@ public class JwtConfig {
      * 开启 记住我 之后 jwt 过期时间，默认值 604800000 {@code 7 天}
      */
     private Long remember = 604800000L;
+
+
 }

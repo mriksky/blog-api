@@ -15,6 +15,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -51,9 +52,12 @@ public class JwtUtil {
      * @throws
      * @return 
      **/
-    public String createJwt(Boolean rememberMe, Long id, String subject, List<String> roles, Collection<? extends GrantedAuthority> authorities){
+    public String createJWT(Boolean rememberMe, Long id, String subject, List<String> roles, Collection<? extends GrantedAuthority> authorities){
         Date nowTime = new Date();
         JwtBuilder jwtBuilder = Jwts.builder();
+        /**
+         *
+         **/
         jwtBuilder.setId(id.toString())
                 .setSubject(subject).setIssuedAt(nowTime)
                 .signWith(SignatureAlgorithm.HS256,jwtConfig.getKey())
@@ -79,8 +83,19 @@ public class JwtUtil {
      */
     public String createJWT(Authentication authentication, Boolean rememberMe) {
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        return createJwt(rememberMe,userPrincipal.getId(),userPrincipal.getUsername(),userPrincipal.getRoles(),userPrincipal.getAuthorities());
+        return createJWT(rememberMe,userPrincipal.getId(),userPrincipal.getUsername(),userPrincipal.getRoles(),userPrincipal.getAuthorities());
     }
+
+
+    /**
+     * 设置JWT过期
+     *
+     * @param request 请求
+     */
+    public void invalidateJWT(HttpServletRequest request) {
+
+    }
+
 
 
 
