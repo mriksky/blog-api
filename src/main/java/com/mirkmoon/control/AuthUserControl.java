@@ -4,6 +4,8 @@ package com.mirkmoon.control;
 
 import com.mirkmoon.components.utils.JwtUtil;
 import com.mirkmoon.dto.ApiResponse;
+import com.mirkmoon.dto.Status;
+import com.mirkmoon.exception.SecurityException;
 import com.mirkmoon.vo.JwtResponse;
 import com.mirkmoon.vo.LoginRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -55,6 +57,11 @@ public class AuthUserControl {
      */
     @PostMapping("/logout")
     public ApiResponse logout(HttpServletRequest request){
-        return null;
+        try {
+            jwtUtil.invalidateJWT(request);
+        }catch (SecurityException e){
+            throw new SecurityException(Status.UNAUTHORIZED);
+        }
+        return ApiResponse.ofSuccess(Status.LOGOUT);
     }
 }

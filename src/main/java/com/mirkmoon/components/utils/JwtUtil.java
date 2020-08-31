@@ -76,7 +76,7 @@ public class JwtUtil {
     }
 
     /**
-     @description 创建JWT
+     * @description 创建JWT
      * @param authentication 用户认证信息
      * @param rememberMe     记住我
      * @return createJwt
@@ -88,12 +88,14 @@ public class JwtUtil {
 
 
     /**
-     * 设置JWT过期
-     *
+     * @description 设置JWT过期
      * @param request 请求
+     * @return
      */
     public void invalidateJWT(HttpServletRequest request) {
-
+        String jwt = getJwtFromRequest(request);
+        String username = getUsernameFromJWT(jwt);
+        stringRedisTemplate.delete(Consts.REDIS_JWT_KEY_PREFIX+username);
     }
 
 
@@ -104,7 +106,7 @@ public class JwtUtil {
      * @description 解析jwt
      * @param jwt
      * @updateTime 2020/8/25 16:45
-     * @throws
+     * @throws SecurityException
      * @return
      **/
     public Claims parseJWT(String jwt) {
@@ -148,7 +150,28 @@ public class JwtUtil {
         }
     }
 
+    /**
+     * @description 根据 jwt 获取用户名
+     * @param jwt JWT
+     * @return 用户名
+     */
+    public String getUsernameFromJWT(String jwt) {
+        Claims claims = parseJWT(jwt);
+        return claims.getSubject();
+    }
 
+    /**
+     * @description 从 request 的 header 中获取 JWT
+     * @param request 请求
+     * @return JWT
+     */
+    public String getJwtFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (StrUtil.isNotBlank(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
 
 
 }
