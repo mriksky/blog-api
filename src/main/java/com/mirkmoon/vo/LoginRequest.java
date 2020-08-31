@@ -1,4 +1,4 @@
-package com.mirkmoon.control;
+package com.mirkmoon.vo;
 
 import lombok.Data;
 

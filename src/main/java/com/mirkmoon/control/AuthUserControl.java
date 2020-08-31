@@ -4,9 +4,8 @@ package com.mirkmoon.control;
 
 import com.mirkmoon.components.utils.JwtUtil;
 import com.mirkmoon.dto.ApiResponse;
-import com.mirkmoon.dto.Status;
 import com.mirkmoon.vo.JwtResponse;
-import com.mirkmoon.exception.SecurityException;
+import com.mirkmoon.vo.LoginRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

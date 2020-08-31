@@ -11,8 +11,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @Version v1.0
  **/
 @Data
-//获取jwt的配置注解
 @ConfigurationProperties(prefix = "jwt.config")
+//获取jwt的配置注解
 public class JwtConfig {
     /**
      * jwt 加密 key，默认值：
