@@ -1,11 +1,14 @@
 #spring:
 #  profiles:
 #    active: dev
-
+server:
+  port: 8080
+#  servlet:
+#    context-path: /demo
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.0.0.100:3306/blog?useUnicode=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://192.168.1.69:3306/blog?useUnicode=true&useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
@@ -15,21 +18,22 @@ mybatis:
   mapperLocations: classpath:mappers/*.xml
 
 redis:
-  host: localhost
+  host: 192.168.1.69
   port: 6379
-  # Á¬½Ó³¬Ê±Ê±¼ä£¨¼ÇµÃÌí¼Óµ¥Î»£¬Duration£©
+  password: root
+  # ï¿½ï¿½ï¿½Ó³ï¿½Ê±Ê±ï¿½ä£¨ï¿½Çµï¿½ï¿½ï¿½Óµï¿½Î»ï¿½ï¿½Durationï¿½ï¿½
   timeout: 10000ms
-  # RedisÄ¬ÈÏÇé¿öÏÂÓĞ16¸ö·ÖÆ¬£¬ÕâÀïÅäÖÃ¾ßÌåÊ¹ÓÃµÄ·ÖÆ¬
+  # RedisÄ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½16ï¿½ï¿½ï¿½ï¿½Æ¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½Ê¹ï¿½ÃµÄ·ï¿½Æ¬
   # database: 0
   lettuce:
     pool:
-      # Á¬½Ó³Ø×î´óÁ¬½ÓÊı£¨Ê¹ÓÃ¸ºÖµ±íÊ¾Ã»ÓĞÏŞÖÆ£© Ä¬ÈÏ 8
+      # ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¸ï¿½Öµï¿½ï¿½Ê¾Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ Ä¬ï¿½ï¿½ 8
       max-active: 8
-      # Á¬½Ó³Ø×î´ó×èÈûµÈ´ıÊ±¼ä£¨Ê¹ÓÃ¸ºÖµ±íÊ¾Ã»ÓĞÏŞÖÆ£© Ä¬ÈÏ -1
+      # ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½Ê±ï¿½ä£¨Ê¹ï¿½Ã¸ï¿½Öµï¿½ï¿½Ê¾Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ Ä¬ï¿½ï¿½ -1
       max-wait: -1ms
-      # Á¬½Ó³ØÖĞµÄ×î´ó¿ÕÏĞÁ¬½Ó Ä¬ÈÏ 8
+      # ï¿½ï¿½ï¿½Ó³ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¬ï¿½ï¿½ 8
       max-idle: 8
-      # Á¬½Ó³ØÖĞµÄ×îĞ¡¿ÕÏĞÁ¬½Ó Ä¬ÈÏ 0
+      # ï¿½ï¿½ï¿½Ó³ï¿½ï¿½Ğµï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¬ï¿½ï¿½ 0
       min-idle: 0
 
 
@@ -44,11 +48,11 @@ logging:
 custom:
   config:
     ignores:
-      # ĞèÒª¹ıÂËµÄ post ÇëÇó
+      # éœ€è¦è¿‡æ»¤çš„ post è¯·æ±‚
       post:
-        - "/login"
-        - "/logout"
-      # ĞèÒª¹ıÂËµÄÇëÇó£¬²»ÏŞ·½·¨
+        - "/api/auth/login"
+        - "/api/auth/logout"
+      # éœ€è¦è¿‡æ»¤çš„è¯·æ±‚ï¼Œä¸é™æ–¹æ³•
       pattern:
         - "/test/*"
 
