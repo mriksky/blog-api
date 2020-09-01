@@ -1,6 +1,5 @@
 package com.mirkmoon.config.security;
 
-import com.mirkmoon.config.CustomConfig;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

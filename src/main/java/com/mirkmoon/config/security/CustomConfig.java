@@ -1,11 +1,11 @@
-package com.mirkmoon.config;
+package com.mirkmoon.config.security;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @ClassName CustomConfig
- * @Description TODO
+ * @Description  自定义url配置类
  * @Author liqihuang
  * @Date 2020/8/31 18:35
  * @Version v1.0
@@ -14,5 +14,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "custom.config")
 @Data
 public class CustomConfig {
+    //忽略
     private IgnoreConfig ignores;
 }

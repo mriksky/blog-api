@@ -3,6 +3,7 @@ package com.mirkmoon.components.utils;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import com.mirkmoon.components.common.Consts;
+import com.mirkmoon.config.jwt.JwtConfig;
 import com.mirkmoon.dto.Status;
 import com.mirkmoon.exception.SecurityException;
 import com.mirkmoon.vo.UserPrincipal;
