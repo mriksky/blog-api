@@ -9,6 +9,6 @@ package com.mirkmoon.service;
  **/
 
 
-public interface userService {
+public interface UserService {
 
 }

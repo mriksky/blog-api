@@ -1,5 +1,6 @@
 package com.mirkmoon.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +10,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 /**
  * @ClassName SecurityConfig
@@ -22,6 +25,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @EnableConfigurationProperties(CustomConfig.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
 
     @Bean
     public BCryptPasswordEncoder encoder(){
@@ -68,7 +74,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
        .authorizeRequests()
        .anyRequest()
        .authenticated()
-       .anyRequest()
-       .access("");
+        //RBAC 动态 url 认证
+       //.anyRequest()
+       //.access("")
+       // 登出行为由自己实现，参考 AuthController#logout
+       .and().logout().disable()
+       // Session 管理
+       .sessionManagement()
+       // 因为使用了JWT，所以这里不管理Session
+       .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }

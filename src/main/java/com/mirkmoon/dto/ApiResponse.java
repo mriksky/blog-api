@@ -27,8 +27,7 @@ public class ApiResponse implements Serializable {
     }
 
     /**
-     * 全参构造函数
-     *
+     *@descrption 全参构造函数
      * @param code    状态码
      * @param message 返回内容
      * @param data    返回数据
@@ -40,8 +39,7 @@ public class ApiResponse implements Serializable {
     }
 
     /**
-     * 构造一个自定义的API返回
-     *
+     * @descrption 构造一个自定义的API返回
      * @param code    状态码
      * @param message 返回内容
      * @param data    返回数据
@@ -59,7 +57,7 @@ public class ApiResponse implements Serializable {
      * @updateTime 2020/8/19 23:03
      **/
     public static ApiResponse ofSuccess() {
-        return ofSuccess();
+        return ofSuccess(null);
     }
 
     /**
@@ -74,10 +72,10 @@ public class ApiResponse implements Serializable {
     }
 
     /**
-     * @param
-     * @return
+     * @param message
+     * @return of
      * @throws
-     * @description 构造一个有状态的API返回
+     * @description 构造一个成功且自定义消息的API返回
      * @updateTime 2020/8/19 23:15
      **/
     public static ApiResponse ofStatus(String message) {
@@ -85,8 +83,18 @@ public class ApiResponse implements Serializable {
     }
 
     /**
+     * @description 构造一个有状态的API返回
+     * @throws
+     * @param status 状态 {@link Status}
+     * @return ApiResponse
+     */
+    public static ApiResponse ofStatus(Status status) {
+        return ofStatus(status, null);
+    }
+
+    /**
      * @description 构造一个有状态且带数据的API返回
-     * @param
+     * @param status 状态 {@link IStatus}  Object
      * @return code 状态码  message状态信息 data数据
      * @throws
      * @updateTime 2020/8/19 23:26
