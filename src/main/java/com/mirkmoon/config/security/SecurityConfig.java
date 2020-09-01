@@ -1,12 +1,15 @@
 package com.mirkmoon.config.security;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @ClassName SecurityConfig
@@ -20,22 +23,52 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableConfigurationProperties(CustomConfig.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    protected SecurityConfig() {
-        super();
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
     }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         super.configure(auth);
     }
 
+
+    /**
+     * @description 全局请求忽略规则配置
+     * @param web
+     * @return
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
         super.configure(web);
     }
+    /**
+     * @description 全局请求忽略规则配置
+     * @param http
+     * @return
+     */
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+       http.cors()
+       // 关闭 CSRF
+       .and().csrf().disable()
+       // 登录行为由自己实现，参考 AuthController#login
+       .formLogin().disable()
+       .httpBasic().disable()
+        //认证请求
+       .authorizeRequests()
+       .anyRequest()
+       .authenticated()
+       .anyRequest()
+       .access("");
     }
 }

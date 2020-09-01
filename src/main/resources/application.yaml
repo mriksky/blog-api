@@ -15,7 +15,7 @@ spring:
     
 mybatis:
   typeAliasesPackage: com.mirkmoon.pojo
-  mapperLocations: classpath:mappers/*.xml
+  mapperLocations: classpath:mapper/*.xml
 
 redis:
   host: 192.168.1.69
