@@ -1,4 +1,4 @@
-package com.mirkmoon.pojo;
+package com.mirkmoon.pojo.unionkey;
 
 import java.io.Serializable;
 
