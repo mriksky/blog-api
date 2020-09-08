@@ -23,8 +23,8 @@ public interface UserMapper {
 
 
     int updateByPrimaryKey(User record);
-
+    //
     Optional<User> queryByUsernameOrEmailOrPhone(String username, String email, String phone);
-
+    //
     List<User> findByUsernameIn(List<String> usernameList);
 }

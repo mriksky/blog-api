@@ -2,6 +2,8 @@ package com.mirkmoon.mapper;
 
 import com.mirkmoon.pojo.Permission;
 
+import java.util.List;
+
 public interface PermissionMapper {
 
     int deleteByPrimaryKey(Long id);
@@ -20,4 +22,7 @@ public interface PermissionMapper {
 
 
     int updateByPrimaryKey(Permission record);
+
+    List<Permission> selectByRoleIdList(List<Long> ids);
+
 }
