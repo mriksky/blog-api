@@ -26,18 +26,22 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
 
-  <select id="queryByUsernameOrEmailOrPhone" resultType="com.mirkmoon.pojo.User">
-    select * from sys_user
+  <!--<select id="queryByUsernameOrEmailOrPhone"  resultMap="com.mirkmoon.mapper.UserRoleMapper.BaseResultMap">
+    select sys_user.* from sys_user
         <where>
-            <if test="username !=null and username.length() >0 ">and suername=#{username}</if>
-            <if test="email !=null and email.length() >0 ">and email=#{email}</if>
-            <if test="phone !=null and phone.length() >0 ">and phone=#{phone}</if>
+            <if test="username !=null and username !='' " >and username=#{username}</if>
+            <if test="email !=null and email !='' ">and email=#{email}</if>
+            <if test="phone !=null and phone !='' ">and phone=#{phone}</if>
         </where>
-  </select>
+  </select>-->
   <select id="findByUsernameIn" resultType="com.mirkmoon.pojo.User">
-
   </select>
-
+  <select id="queryByUsernameOrEmailOrPhone" resultType="com.mirkmoon.pojo.User">
+    select sys_user.* from sys_user
+    <where>
+      <if test="username !=null and username !='' " >and username=#{username}</if>
+    </where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from sys_user
     where id = #{id,jdbcType=BIGINT}

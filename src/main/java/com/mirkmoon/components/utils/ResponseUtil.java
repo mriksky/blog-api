@@ -53,7 +53,7 @@ public class ResponseUtil {
             response.setContentType("application/json;charset=UTF-8");
             response.setStatus(200);
 
-            // FIXME: hutool 的 BUG：JSONUtil.toJsonStr()
+            // FIXME: hutool的BUG：JSONUtil.toJsonStr()
             //  将JSON转为String的时候，忽略null值的时候转成的String存在错误
             response.getWriter()
                     .write(JSONUtil.toJsonStr(new JSONObject(ApiResponse.ofException(exception), false)));

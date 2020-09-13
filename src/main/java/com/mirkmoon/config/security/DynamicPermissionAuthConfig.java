@@ -1,4 +1,4 @@
-package com.mirkmoon.config.auth;
+package com.mirkmoon.config.security;
 
 import org.springframework.security.core.Authentication;
 

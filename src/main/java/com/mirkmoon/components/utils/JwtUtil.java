@@ -162,7 +162,7 @@ public class JwtUtil {
     }
 
     /**
-     * @description 从 request 的 header 中获取 JWT
+     * @description 从request的 header中获取 JWT
      * @param request 请求
      * @return JWT
      */

@@ -15,7 +15,7 @@ spring:
     
 mybatis:
   typeAliasesPackage: com.mirkmoon.pojo
-  mapperLocations: classpath:mapper/*.xml
+  mapper-locations: classpath*:/mybatis/*.xml
 
 redis:
   host: 10.0.0.100
@@ -44,8 +44,8 @@ custom:
   config:
     ignores:
       post:
-        - "/api/auth/login"
-        - "/api/auth/logout"
+        - "/user/login"
+        - "/user/logout"
       get:
         - "/swagger-ui.html#/*"
       pattern:

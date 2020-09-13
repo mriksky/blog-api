@@ -24,7 +24,9 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
     //
-    Optional<User> queryByUsernameOrEmailOrPhone(String username, String email, String phone);
+    //Optional<User> queryByUsernameOrEmailOrPhone(String username, String email, String phone);
+
+    Optional<User> queryByUsernameOrEmailOrPhone(String username);
     //
     List<User> findByUsernameIn(List<String> usernameList);
 }

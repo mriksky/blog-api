@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @ClassName: CustomUserDetailsService
@@ -44,7 +43,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      **/
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmailOrPhone) throws UsernameNotFoundException {
-        User user = userMapper.queryByUsernameOrEmailOrPhone(usernameOrEmailOrPhone, usernameOrEmailOrPhone, usernameOrEmailOrPhone)
+        User user = userMapper.queryByUsernameOrEmailOrPhone(usernameOrEmailOrPhone)
                 .orElseThrow((() -> new UsernameNotFoundException("未找到用户信息" + usernameOrEmailOrPhone)));
         List<Role> roles = roleMapper.queryByUserId(user.getId());
         List<Long> roleIds = roles.stream()
